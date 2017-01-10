@@ -1,9 +1,7 @@
 package observer;
 
-public class Observer {
+public interface Observer {
 
-	public void notificaRicevuta(String notifica){
-		System.out.println(notifica);
-	}
+	public void ricezioneNotifica(String notifica);
 
 }
