@@ -17,9 +17,14 @@ public class ProfileTest {
         Criteria criteria = new Criteria();
         Answer criteriaAnswer = new Answer(question, true);
         profile.add(criteriaAnswer);
-        Criterion criterion = new Criterion(criteriaAnswer, Weight.MustMatch);
+
+        Question question2 = new BooleanQuestion(true,"Are you British?");
+        Answer randomAnswer = new Answer(question2, true);
+        Criterion criterion2 = new Criterion(randomAnswer,Weight.MustMatch);
+
+        Criterion criterion = new Criterion(criteriaAnswer,Weight.MustMatch);
         criteria.add(criterion);
-        profile.matches(criteria);
+        assert(profile.matches(criteria));
     }
 
 }

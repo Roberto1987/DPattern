@@ -43,6 +43,7 @@ public class Profile {
             //Getting an answer object by the its Question questionText.
             Answer answer = answers.get(criterion.getAnswer().getQuestionText());
             boolean match = ((criterion.getWeight().getWeight() == Weight.DontCare) || (answer.match(criterion.getAnswer())));
+            assert(match);
             if (!match && criterion.getWeight().getWeight() == Weight.MustMatch) {
                 kill = true;
             }
@@ -50,6 +51,7 @@ public class Profile {
                 score += criterion.getWeight().getWeight();
             }
             anyMatches |= match;
+            assert(score == Weight.MustMatch);
         }
         if (kill)
             return false;
