@@ -1,5 +1,8 @@
 package forkJoinOracle;
 
+import org.junit.*;
+import org.junit.Test;
+
 import java.awt.image.BufferedImage;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
@@ -36,6 +39,7 @@ public class ForkBlur extends RecursiveAction {
     }
 
     // Average pixels from source, write results into destination.
+
     private void computeDirectly() {
         int sidePixels = (mBlurWidth - 1) / 2;
         for (int index = mStart; index < mStart + mLength; index++) {
@@ -81,7 +85,8 @@ public class ForkBlur extends RecursiveAction {
      * @param srcImage
      * @return
      */
-    public static BufferedImage blur(BufferedImage srcImage) {
+
+     public static BufferedImage blur(BufferedImage srcImage) {
 
         int w = srcImage.getWidth();
         int h = srcImage.getHeight();

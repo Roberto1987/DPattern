@@ -1,5 +1,8 @@
 package prodCons;
 
+import org.junit.*;
+import org.junit.Test;
+
 /**
  * Created by roberto on 10/05/17.
  */
@@ -12,6 +15,7 @@ public class Producer implements Runnable {
      * Binding the buffer to the producer
      * @param buffer
      */
+
      public Producer(Buffer buffer){
 
              this.buffer = buffer;
