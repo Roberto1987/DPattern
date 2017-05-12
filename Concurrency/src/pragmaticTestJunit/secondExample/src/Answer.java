@@ -30,8 +30,7 @@ public class Answer implements IAnswer {
      */
     @Override
     public boolean match(Answer answer) {
-        return ((answer.getQuestionText().equals(this.getQuestionText())) &&
-                (answer.getAnswer() == this.getAnswer()));
+        return answer.getAnswer() == this.getAnswer();
     }
 
     /**

@@ -1,6 +1,7 @@
 package pragmaticTestJunit.secondExample.test;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import pragmaticTestJunit.secondExample.src.*;
 import pragmaticTestJunit.secondExample.src.models.Question;
@@ -10,21 +11,53 @@ import pragmaticTestJunit.secondExample.src.models.Question;
  */
 public class ProfileTest {
 
-    @Test
-    public void test() {
-        Profile profile = new Profile("Bull Hockey, Inc.");
-        Question question = new BooleanQuestion(true, "Got bonuses?");
-        Criteria criteria = new Criteria();
-        Answer criteriaAnswer = new Answer(question, true);
-        profile.add(criteriaAnswer);
+    private Profile profile;
+    private Question question;
+    private Criteria criteria;
+    private double startTime;
 
-        Question question2 = new BooleanQuestion(true,"Are you British?");
-        Answer randomAnswer = new Answer(question2, true);
-        Criterion criterion2 = new Criterion(randomAnswer,Weight.MustMatch);
+    @Before
+    public void preTest(){
+        profile = new Profile("Bull Hockey, Inc.");
+        question = new BooleanQuestion(true, "Got bonuses?");
+        criteria = new Criteria();
+        startTime = System.currentTimeMillis();
+    }
+
+
+    @Test
+    public void answerMissmatchTest() {
+
+        Answer criteriaAnswer = new Answer(question, true);
+        Answer badCriteriaAnswer = new Answer(question, true);
+
+        profile.add(criteriaAnswer);
+        profile.add(badCriteriaAnswer);
 
         Criterion criterion = new Criterion(criteriaAnswer,Weight.MustMatch);
+        Criterion criterion1 = new Criterion(badCriteriaAnswer,Weight.MustMatch);
         criteria.add(criterion);
         assert(profile.matches(criteria));
+    }
+    @Test
+    public void questionMissmatchTest(){
+        Question question2 = new BooleanQuestion(true, "corrupted question");
+        Answer criteriaAnswer = new Answer(question, true);
+        Answer badCriteriaAnswer = new Answer(question2, true);
+
+        profile.add(criteriaAnswer);
+        profile.add(badCriteriaAnswer);
+
+        Criterion criterion = new Criterion(criteriaAnswer,Weight.MustMatch);
+        Criterion criterion2 = new Criterion(badCriteriaAnswer,Weight.MustMatch);
+        criteria.add(criterion);
+        criteria.add(criterion2);
+        assert(profile.matches(criteria));
+    }
+
+    @After
+    public void epilogue(){
+        System.out.println("Test ended in "+(System.currentTimeMillis()-startTime)+" ms");
     }
 
 }

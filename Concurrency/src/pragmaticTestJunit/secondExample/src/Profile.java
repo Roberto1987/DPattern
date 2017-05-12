@@ -1,8 +1,6 @@
 package pragmaticTestJunit.secondExample.src;
 
 
-import org.junit.Test;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,9 +28,7 @@ public class Profile {
 
 
     public void add(Answer answer) {
-        assert(answers.isEmpty()); //Check if the original collection was empy
-        answers.put(answer.getQuestionText(), answer);
-        assert(!answers.isEmpty()); //Check if an object was inserted
+           answers.put(answer.getQuestionText(), answer);
     }
 
     public boolean matches(Criteria criteria) {
@@ -42,16 +38,16 @@ public class Profile {
         for (Criterion criterion : criteria) {
             //Getting an answer object by the its Question questionText.
             Answer answer = answers.get(criterion.getAnswer().getQuestionText());
-            boolean match = ((criterion.getWeight().getWeight() == Weight.DontCare) || (answer.match(criterion.getAnswer())));
-            assert(match);
-            if (!match && criterion.getWeight().getWeight() == Weight.MustMatch) {
+            boolean match = ((criterion.getWeight().getValue() == Weight.DontCare) || (answer.match(criterion.getAnswer())));
+            if (!match && criterion.getWeight().getValue() == Weight.MustMatch) {
                 kill = true;
             }
             if (match) {
-                score += criterion.getWeight().getWeight();
+                score += criterion.getWeight().getValue();
             }
             anyMatches |= match;
-            assert(score == Weight.MustMatch);
+//            assert(score == Weight.MustMatch);
+            System.out.println("Score: "+this.score);
         }
         if (kill)
             return false;
