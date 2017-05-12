@@ -1,8 +1,12 @@
 package pragmaticTestJunit.thirdExample.test;
 
 import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import pragmaticTestJunit.thirdExample.src.Account;
+import pragmaticTestJunit.thirdExample.src.InsufficientFundsException;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
@@ -15,9 +19,13 @@ public class AccountTest {
 
     private Account account;
     private final int referenceValue = 101;
+    //Except test exception method
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Before
-    public void preTest(){
+    public void preTest() {
         account = new Account();
 
     }
@@ -37,9 +45,25 @@ public class AccountTest {
     }
 
     @Test
-    public void balanceIsEqualTo(){
+    public void balanceIsEqualTo() {
         account.deposit(101);
-        assertThat(account.getBalance(),equalTo(referenceValue));
-
+        assertThat(account.getBalance(), equalTo(referenceValue));
     }
+
+    @Test(expected = InsufficientFundsException.class)
+    public void throwsWhenWithdrawingTooMuchOldWay() {
+        account.withdraw(90);
+    }
+
+    @Test
+    public void throwsWhenWithdrawingTooMuchNewWay() {
+        thrown.expect(InsufficientFundsException.class);
+       // thrown.expectMessage("Account balance insufficient");
+        account.withdraw(90);
+    }
+
+
 }
+
+
+

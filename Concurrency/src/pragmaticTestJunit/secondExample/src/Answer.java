@@ -9,9 +9,9 @@ import pragmaticTestJunit.secondExample.src.models.Question;
 public class Answer implements IAnswer {
 
     private Question question;
-    private boolean answer;
+    private String answer;
 
-    public Answer(Question question, boolean answer){
+    public Answer(Question question, String answer){
         this.question = question;
         this.answer = answer;
     }
@@ -37,8 +37,16 @@ public class Answer implements IAnswer {
      * Setting the answer text.
      * @return
      */
-    public boolean getAnswer() {
+    public String getAnswer() {
         return answer;
+    }
+
+    /**
+     * Return the question ID
+     * @return
+     */
+    public int getQuestionId(){
+        return this.question.getQuestionId()
     }
 
     public void setQuestion(Question question) {

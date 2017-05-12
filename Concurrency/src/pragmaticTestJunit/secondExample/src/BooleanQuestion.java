@@ -7,9 +7,9 @@ import pragmaticTestJunit.secondExample.src.models.Question;
  */
 public class BooleanQuestion extends Question {
 
-    private final Boolean answer;
+    private final String answer;
 
-    public BooleanQuestion(Boolean answer, String questionText) {
+    public BooleanQuestion(String answer, String questionText) {
         super(questionText);
         this.answer = answer;
     }

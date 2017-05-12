@@ -7,6 +7,8 @@ public interface IAccount {
 
     void deposit(int cash);
 
+    void withdraw(int cash) throws InsufficientFundsException;
+
     boolean hasPositiveBalance();
 
 }

@@ -16,10 +16,13 @@ public class ProfileTest {
     private Criteria criteria;
     private double startTime;
 
+    private String trueValue = "true";
+    private String falseValue = "false";
+
     @Before
     public void preTest(){
         profile = new Profile("Bull Hockey, Inc.");
-        question = new BooleanQuestion(true, "Got bonuses?");
+        question = new BooleanQuestion("Got bonuses?",trueValue);
         criteria = new Criteria();
         startTime = System.currentTimeMillis();
     }
@@ -28,8 +31,8 @@ public class ProfileTest {
     @Test
     public void answerMissmatchTest() {
 
-        Answer criteriaAnswer = new Answer(question, true);
-        Answer badCriteriaAnswer = new Answer(question, true);
+        Answer criteriaAnswer = new Answer(question, trueValue);
+        Answer badCriteriaAnswer = new Answer(question, trueValue);
 
         profile.add(criteriaAnswer);
         profile.add(badCriteriaAnswer);
@@ -41,9 +44,9 @@ public class ProfileTest {
     }
     @Test
     public void questionMissmatchTest(){
-        Question question2 = new BooleanQuestion(true, "corrupted question");
-        Answer criteriaAnswer = new Answer(question, true);
-        Answer badCriteriaAnswer = new Answer(question2, true);
+        Question question2 = new BooleanQuestion("corrupted question",trueValue);
+        Answer criteriaAnswer = new Answer(question, trueValue);
+        Answer badCriteriaAnswer = new Answer(question2, trueValue);
 
         profile.add(criteriaAnswer);
         profile.add(badCriteriaAnswer);
@@ -55,9 +58,19 @@ public class ProfileTest {
         assert(profile.matches(criteria));
     }
 
+    @Test
+    public void addMethodTest(){
+        Profile profile = new Profile("Bull Hockey, Inc.");
+        Question question = new BooleanQuestion("Got bonuses?",trueValue);
+        Criteria criteria = new Criteria();
+        Answer criteriaAnswer = new Answer(question, trueValue);
+        profile.add(criteriaAnswer);
+    }
+
     @After
     public void epilogue(){
         System.out.println("Test ended in "+(System.currentTimeMillis()-startTime)+" ms");
     }
+
 
 }
