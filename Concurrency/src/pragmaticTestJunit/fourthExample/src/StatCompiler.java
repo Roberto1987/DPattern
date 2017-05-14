@@ -10,6 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class StatCompiler {
     private QuestionController controller = new QuestionController();
+
    public Map<String, Map<Boolean, AtomicInteger>> responsesByQuestion(List<BooleanAnswer> answers)
     {
         Map<Integer, Map<Boolean, AtomicInteger>> responses = new HashMap<>();
@@ -21,13 +22,13 @@ public class StatCompiler {
                                                                                     AtomicInteger>> responses)
     {
         Map<String, Map<Boolean, AtomicInteger>> textResponses = new HashMap<>();
-        responses.keySet().stream().forEach(id ->textResponses.put(controller.find(id).getText(), responses.get(id)));
+        responses.keySet().stream().forEach(id ->textResponses.put(controller.find(id).getQuestionText(), responses.get(id)));
         return textResponses;
     }
 
    private void incrementHistogram( Map<Integer, Map<Boolean, AtomicInteger>> responses,BooleanAnswer answer) {
         Map<Boolean, AtomicInteger> histogram = getHistogram(responses, answer.getQuestionId());
-        histogram.get(Boolean.valueOf(answer.getValue())).getAndIncrement();
+        histogram.get(Boolean.valueOf(answer.getAnswer())).getAndIncrement();
     }
     private Map<Boolean, AtomicInteger> getHistogram( Map<Integer, Map<Boolean, AtomicInteger>> responses, int id) {
         Map<Boolean, AtomicInteger> histogram = null;

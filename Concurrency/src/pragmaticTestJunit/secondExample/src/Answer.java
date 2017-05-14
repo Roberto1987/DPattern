@@ -3,6 +3,8 @@ package pragmaticTestJunit.secondExample.src;
 import pragmaticTestJunit.secondExample.src.models.IAnswer;
 import pragmaticTestJunit.secondExample.src.models.Question;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * Created by rob on 5/11/17.
  */
@@ -46,10 +48,8 @@ public class Answer implements IAnswer {
      * @return
      */
     public int getQuestionId(){
-        return this.question.getQuestionId()
+        return this.question.getQuestionId();
     }
 
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
+
 }
